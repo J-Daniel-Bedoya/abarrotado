@@ -1,4 +1,4 @@
-const { Usuario, Mensajes } = require("../models");
+const { Usuario, Mensajes, Tienda } = require("../models");
 
 class MensajesServices {
 
@@ -13,9 +13,10 @@ class MensajesServices {
   static async createMensaje(id, body) {
     try {
       const userId = Number(id);
-      const { mensaje } = body;
+      const { mensaje, tiendaId } = body;
       const result = await Mensajes.create({
         mensaje,
+        tiendaId,
         usuarioId: userId,
       });
       return result;
@@ -25,16 +26,24 @@ class MensajesServices {
   }
   static async getMensaje(id) {
     try {
-      const result = await Usuario.findOne({
-        where: { id },
+      const usuario = await Usuario.findOne({where: { id }})
+      const result = await Mensajes.findOne({
+        where: {usuarioId: usuario.id},
         attributes: {
-          exclude: ["password"]
+          exclude: ["tiendaId", "tienda_id", "usuarioId", "usuario_id"],
         },
-        include: {
-          model: Mensajes,
-          as: "mensajes",
-          attributes: ["mensaje"]
-        }
+        include: [
+          {
+            model: Usuario,
+            as: "usuario",
+            attributes: ["nombre", "email"]
+          },
+          {
+            model: Tienda,
+            as: "tienda",
+            attributes: ["nombre", "logo"],
+          }
+        ]
       });
       return result;
     } catch (error) {

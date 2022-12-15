@@ -17,7 +17,7 @@ class StoreServices {
           },
           {
             model: Horarios,
-            as: "Horarios",
+            as: "horarios",
             attributes: {
               exclude: ["id", "tiendaId", "tienda_id"]
             }
@@ -85,7 +85,7 @@ class StoreServices {
       const tienda = await Tienda.findOne({
         where: { id },
       })
-      const result = tienda.update(body);
+      const result = await tienda.update(body);
       return result;
     } catch (error) {
       throw error;

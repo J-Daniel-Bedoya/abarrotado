@@ -15,13 +15,16 @@ const Mensajes = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    tiendaId: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      field: "tienda_id"
+    },
     usuarioId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       field: "usuario_id",
     }
-  }, {
-    timestamps: false,
   }
 );
 
