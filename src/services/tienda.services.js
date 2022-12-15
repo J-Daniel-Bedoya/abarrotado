@@ -43,7 +43,7 @@ class StoreServices {
           },
           {
             model: Horarios,
-            as: "Horarios",
+            as: "horarios",
             attributes: {
               exclude: ["id", "tiendaId", "tienda_id"]
             }
