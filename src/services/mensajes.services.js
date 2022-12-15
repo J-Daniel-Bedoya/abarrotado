@@ -27,7 +27,7 @@ class MensajesServices {
   static async getMensaje(id) {
     try {
       const usuario = await Usuario.findOne({where: { id }})
-      const result = await Mensajes.findOne({
+      const result = await Mensajes.findAll({
         where: {usuarioId: usuario.id},
         attributes: {
           exclude: ["tiendaId", "tienda_id", "usuarioId", "usuario_id"],
