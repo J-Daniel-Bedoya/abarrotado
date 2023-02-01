@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());  
 
-initModels()
+initModels();
 
 db.authenticate()
   .then(() => console.log('Autenticación exitosa'))
